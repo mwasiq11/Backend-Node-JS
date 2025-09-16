@@ -1,6 +1,7 @@
 const http = require("http");
 const fs=require('fs')
 const { URLSearchParams } = require("url");
+const { error } = require("console");
 const requestHandler=(req, res) => {
   if (req.url === "/") {
     res.setHeader("Content-Type", "text/html");
@@ -45,7 +46,9 @@ const requestHandler=(req, res) => {
       const ObjectBody = Object.fromEntries(params);
       console.log(ObjectBody);
 			// write on file
-			fs.writeFileSync('user.txt',JSON.stringify(ObjectBody))
+			fs.writeFile('user.txt',JSON.stringify(ObjectBody),(error)=>{
+        console.log("error:",error);
+      })
     });
   }
 };
