@@ -1,4 +1,3 @@
-const home = require("../models/home");
 const Home = require("../models/home");
 
 exports.getAddHome = (req, res, next) => {

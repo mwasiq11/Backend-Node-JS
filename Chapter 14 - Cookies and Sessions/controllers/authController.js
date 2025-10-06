@@ -8,7 +8,15 @@ exports.getLogin = (req, res, next) => {
 };
 exports.postLogin=(req,res,next)=>{
 	console.log(req.body);
-	req.cookie("isLoggedIn",true)
+	req.isLoggedIn=true;
 	res.redirect("/");
 
 }
+exports.postLogout=((req,res,next)=>{
+req.session.destroy(()=>{
+  res.redirect("/login")
+})
+})
+
+
+
