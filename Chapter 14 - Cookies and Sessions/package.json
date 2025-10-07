@@ -19,10 +19,15 @@
   },
   "dependencies": {
     "body-parser": "^1.20.3",
+<<<<<<< HEAD
     "connect-mongodb-session": "^5.0.0",
     "ejs": "^3.1.10",
     "express": "^4.21.0",
     "express-session": "^1.18.2",
+=======
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+>>>>>>> 867a29156e72c956f3f76d53e814a3f295307416
     "mongodb": "^6.10.0",
     "mongoose": "^8.18.3",
     "mysql2": "^3.11.4"
