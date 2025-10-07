@@ -1,4 +1,4 @@
-const check = require("express-validator");
+const {check,validationResult} = require("express-validator");
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     pageTitle: "Login",
@@ -8,43 +8,48 @@ exports.getLogin = (req, res, next) => {
 };
 exports.getSignup = (req, res, next) => {
   res.render("auth/signup", {
-    pageTitle: "signup",
+    pageTitle: "Signup",
     currentPage: "signup",
     isLoggedIn: false,
+    errors:[],
+    oldInput:{username:"",email:"",password:"",userType:""}
   });
 };
 exports.postSignup = [
   check("username")
     .trim()
-    .length({ min: 2 })
-    .withMessage("Username must have at least 2 characters") // 'withMessage' M was capital
-    .matches(/^[A-Za-z\s]+$/),
-  withMessage("Username must contain alphabets"),
+    .isLength({ min: 2 })
+    .withMessage("Username must have at least 2 characters")
+    .matches(/^[A-Za-z\s]+$/)
+    .withMessage("Username must contain only alphabets"),
 
-  check("emial")
+  check("email")
     .isEmail()
     .withMessage("Please enter a valid email")
     .normalizeEmail(),
+
   check("password")
-    .isLength({ min: 6 })
-    .withMessage("Password should be atleast 8 characters long")
+    .isLength({ min: 8 })
+    .withMessage("Password should be at least 8 characters long")
     .matches(/[A-Z]/)
-    .withMessage("Password should contain atleast one uppercase letter")
+    .withMessage("Password should contain at least one uppercase letter")
     .matches(/[a-z]/)
-    .withMessage("Password should contain atleast one lowercase letter")
+    .withMessage("Password should contain at least one lowercase letter")
     .matches(/[0-9]/)
-    .withMessage("Password should contain atleast one number")
+    .withMessage("Password should contain at least one number")
     .matches(/[!@&]/)
-    .withMessage("Password should contain atleast one special character")
+    .withMessage("Password should contain at least one special character")
     .trim(),
-  check("confrim password")
+
+  check("confirmPassword")
     .trim()
     .custom((value, { req }) => {
-      if (value != req.body.password) {
+      if (value !== req.body.password) {
         throw new Error("Passwords do not match");
       }
       return true;
     }),
+
   check("userType")
     .notEmpty()
     .withMessage("Please select a user type")
@@ -52,20 +57,29 @@ exports.postSignup = [
     .withMessage("Invalid user type"),
 
   check("terms")
-    .notEmpty()
-    .withMessage("Please accept the terms and conditions")
-    .custom((value, { req }) => {
+    .custom((value) => {
       if (value !== "on") {
         throw new Error("Please accept the terms and conditions");
       }
       return true;
     }),
+
+  // Final middleware that runs after validation
   (req, res, next) => {
-    res.render("auth/signup", {
-      pageTitle: "signup",
-      currentPage: "signup",
-      isLoggedIn: false,
-    });
+    const {username,email,password,userType}=req.body;
+    const errors=validationResult(req)
+    if(!errors.isEmpty()){
+      return res.status(422).render('auth/signup',{
+        pageTitle:'Signup',
+        currentPage:'signup',
+        isLoggedIn:false,
+        errors:errors.array().map(err=>err.msg),
+        oldInput:{username,email,password,userType}
+
+      })
+    }
+    res.redirect('/login')
+   
   },
 ];
 
