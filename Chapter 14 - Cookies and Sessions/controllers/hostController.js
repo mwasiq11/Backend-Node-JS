@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+const home = require("../models/home");
+>>>>>>> 867a29156e72c956f3f76d53e814a3f295307416
 const Home = require("../models/home");
 
 exports.getAddHome = (req, res, next) => {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     pageTitle: "Login",
@@ -19,3 +20,5 @@ exports.postLogout = (req, res, next) => {
     res.redirect("/login");
   })
 }
+=======
+>>>>>>> 96a1b2c23de21ea1d67733ffcc522de913f733fc

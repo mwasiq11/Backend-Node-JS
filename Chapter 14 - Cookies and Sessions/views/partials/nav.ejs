@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 <header class="bg-red-500 text-white p-4 shadow-md">
+=======
+<<<<<<< HEAD
+ bvxXZ<header class="bg-red-500 text-white p-4 shadow-md">
+=======
+<header class="bg-red-500 text-white p-4 shadow-md">
+>>>>>>> 867a29156e72c956f3f76d53e814a3f295307416
+>>>>>>> 96a1b2c23de21ea1d67733ffcc522de913f733fc
   <nav class="container mx-auto flex justify-between items-center">
     <ul class="flex space-x-4">
       <li>
@@ -8,6 +16,7 @@
           >airbnb</a
         >
       </li>
+<<<<<<< HEAD
       <% if (isLoggedIn) { %>
         <li>
           <a
@@ -48,10 +57,52 @@
       <li>
         <% if (!isLoggedIn) { %>
           <a
+=======
+      <% if(isLoggedIn){%>
+     
+      <li>
+        <a
+          href="/homes"
+          class="<%= currentPage === 'Home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Homes-List</a
+        >
+      </li>
+      <li>
+        <a
+          href="/favourites"
+          class="<%= currentPage === 'favourites' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Favourites</a
+        >
+      </li>
+      <li>
+        <a
+          href="/bookings"
+          class="<%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Bookings</a
+        >
+      </li>
+      <li>
+        <a
+          href="/host/host-home-list"
+          class="<%= currentPage === 'host-homes' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Host Homes</a
+        >
+      </li>
+      <li>
+        <a
+          href="/host/add-home"
+          class="<%= currentPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >Add Home</a
+        >
+      </li>
+      <li>
+        <a
+>>>>>>> 867a29156e72c956f3f76d53e814a3f295307416
             href="/login"
             class="hover:bg-red-400 py-2 px-4 rounded transition duration-300"
             >Login</a
           >
+<<<<<<< HEAD
         <% } else { %>
           <form action="/logout" method="POST">
             <button
@@ -64,4 +115,16 @@
       </li>
     </ul>
   </nav>
+<<<<<<< HEAD
 </header>
+=======
+</header>
+=======
+          <% } %>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+>>>>>>> 867a29156e72c956f3f76d53e814a3f295307416
+>>>>>>> 96a1b2c23de21ea1d67733ffcc522de913f733fc
