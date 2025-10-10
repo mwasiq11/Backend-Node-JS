@@ -4,6 +4,7 @@ const path = require('path');
 // External Module
 const express = require('express');
 const session = require('express-session');
+const multer=require('multer')
 const MongoDBStore = require('connect-mongodb-session')(session);
 const DB_PATH="mongodb+srv://root:root00001@node.y1gwx8t.mongodb.net/?retryWrites=true&w=majority&appName=Node"
 
@@ -24,8 +25,42 @@ const store = new MongoDBStore({
   uri: DB_PATH,
   collection: 'sessions'
 });
-
+app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+// generate random string name for file
+const randomString=(length)=>{
+  const characters = 'abcdefghijklmnopqrstuvwxyz';
+  let result="";
+  for(let i=0;i<length;i++){
+    result+=characters.charAt(Math.floor(Math.random()*characters.length))
+  }
+  return result;
+
+}
+const storage=multer.diskStorage({
+  destination:(req,file,cb)=>{
+    // this will make a folder named uploads and save all the uploads files
+    cb(null,"uploads/")
+  },
+  filename:(req,file,cb)=>{
+    cb(null,randomString(10) + '-' +filename.orginalname)
+  }
+})
+// check the file type
+const fileFilter=(req,file,cb)=>{
+  if(file.mimetype==='image/png' || file.mimetype==='image/jpg' || file.mimetype==='image/jpeg')
+    {
+    cb(null,true);
+    }
+  else {
+    cb(null,false);
+   }
+}
+const multerStorage={
+  storage,fileFilter
+}
+// use of multer to handle multipart/form-data
+app.use(multer(multerStorage).single('photo'))
 app.use(session({
   secret: "airbnb",
   resave: false,
