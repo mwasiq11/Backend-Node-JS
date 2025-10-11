@@ -43,7 +43,7 @@ const storage=multer.diskStorage({
     cb(null,"uploads/")
   },
   filename:(req,file,cb)=>{
-    cb(null,randomString(10) + '-' +filename.orginalname)
+    cb(null,randomString(10) + '-' +file.originalname)
   }
 })
 // check the file type
@@ -82,9 +82,12 @@ app.use("/host", (req, res, next) => {
     res.redirect("/login");
   }
 });
-app.use("/host", hostRouter);
 
-app.use(express.static(path.join(rootDir, 'public')))
+app.use("/host", hostRouter);
+app.use(express.static(path.join(rootDir, 'public')));
+app.use('/uploads',express.static(path.join(rootDir,'uploads')));
+app.use('/host/uploads',express.static(path.join(rootDir,'uploads')));
+app.use('/homes/uploads',express.static(path.join(rootDir,'uploads')));
 
 app.use(errorsController.pageNotFound);
 
